@@ -9,8 +9,10 @@ export class CarsController extends BaseController {
     this.router
       .get('', this.getCars)
       .get('/:carId', this.getCar)
+      .get('/:carId/bid', this.getCarBids)
       .use(Auth0Provider.getAuthorizedUserInfo) // middleware
       .post('', this.createCar)
+      .post('/:carId/bid', this.createBid)
       .delete('/:carId', this.removeCar)
       .put('/:carId', this.editCar)
   }
@@ -44,6 +46,26 @@ export class CarsController extends BaseController {
       req.body.creatorId = req.userInfo.id
       const car = await carsService.createCar(req.body)
       res.send(car)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getCarBids(req, res, next) {
+    try {
+      const carBids = await carsService.getBidsByCarId(req.params.carId)
+      res.send(carBids)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async createBid(req, res, next) {
+    try {
+      req.body.carId = req.params.carId
+      req.body.accountId = req.userInfo.id
+      const carBid = await carsService.createBid(req.body)
+      res.send(carBid)
     } catch (error) {
       next(error)
     }
