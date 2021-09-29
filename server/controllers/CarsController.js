@@ -9,10 +9,10 @@ export class CarsController extends BaseController {
     this.router
       .get('', this.getCars)
       .get('/:carId', this.getCar)
-      .get('/:carId/bid', this.getCarBids)
+      .get('/:carId/bids', this.getCarBids)
       .use(Auth0Provider.getAuthorizedUserInfo) // middleware
       .post('', this.createCar)
-      .post('/:carId/bid', this.createBid)
+      .post('/:carId/bids', this.createBid)
       .delete('/:carId', this.removeCar)
       .put('/:carId', this.editCar)
   }

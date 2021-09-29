@@ -1,4 +1,5 @@
 import { dbContext } from '../db/DbContext.js'
+import { socketProvider } from '../SocketProvider.js'
 import { BadRequest, Forbidden } from '../utils/Errors.js'
 import { logger } from '../utils/Logger.js'
 
@@ -59,6 +60,11 @@ class CarsService {
     }
 
     const bid = await dbContext.CarBids.create(bidData)
+    await bid.populate('bidder', 'name picture')
+
+    // NOTE lets tell everyone who cares that the car has a new bid
+    socketProvider.messageRoom('car-' + bidData.carId, 'carBid', bid)
+
     return bid
   }
 
