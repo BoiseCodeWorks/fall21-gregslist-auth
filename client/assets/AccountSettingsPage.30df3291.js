@@ -1,0 +1,1 @@
+import{p as s,e as a,o as t,a as e,i as o,b as n}from"./vendor.1a86e924.js";const c={setup:()=>({})},d=o();s("data-v-1b30210e");const r={class:"account-settings"},l=n("h1",null," hellow from the account settings ",-1);a();const i=d(((s,a,o,n,c,d)=>(t(),e("div",r,[l]))));c.render=i,c.__scopeId="data-v-1b30210e";export default c;
